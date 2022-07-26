@@ -2,8 +2,8 @@
 import fs from 'fs';
 
 export default async function handler(req, res) {
-  const countryFolderArray = fs.readdirSync(
-    `${process.cwd()}/public/newHotels`
+  const countryFolderArray = fs.readFileSync(
+    `${process.cwd()}/public/hotelsCountry.json`
   );
-  res.status(200).json({ data: countryFolderArray });
+  res.status(200).json({ data: JSON.parse(countryFolderArray) });
 }
