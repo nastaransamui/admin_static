@@ -1,10 +1,12 @@
+import path from 'path';
 export default async function handler(req, res) {
   const StreamZip = require('node-stream-zip');
 
   const { id } = req.query;
   try {
+    const file = path.join(process.cwd(), 'public', 'newHotels.zip');
     const zip = new StreamZip.async({
-      file: `${process.cwd()}/public/newHotels.zip`,
+      file: file,
       storeEntries: true,
     });
     const zipObj = await zip.entries();
