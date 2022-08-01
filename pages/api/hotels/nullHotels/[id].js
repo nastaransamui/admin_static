@@ -13,7 +13,7 @@ const apiRoute = nextConnect({
 apiRoute.get(async (req, res) => {
   const { id } = req.query;
   try {
-    const file = path.join(process.cwd(), 'public', 'newHotels.zip');
+    const file = path.join(process.cwd(), 'public', 'ABCnewHotels.zip');
     const zip = new StreamZip.async({
       file: file,
       storeEntries: true,
