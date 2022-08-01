@@ -1,7 +1,15 @@
 import path from 'path';
-export default async function handler(req, res) {
-  const StreamZip = require('node-stream-zip');
+import nextConnect from 'next-connect';
+const StreamZip = require('node-stream-zip');
+const apiRoute = nextConnect({
+  onNoMatch(req, res) {
+    res
+      .status(405)
+      .json({ success: false, Error: `Method '${req.method}' Not Allowed` });
+  },
+});
 
+apiRoute.get(async (req, res) => {
   const { id } = req.query;
   try {
     const file = path.join(process.cwd(), 'public', 'newHotels.zip');
@@ -14,15 +22,16 @@ export default async function handler(req, res) {
       (a) => a.name == `newHotels/${id?.toUpperCase()}/`
     );
     if (fileArray.length > 0) {
-      let zipDotTxtContents = await zip.entryData(
-        `newHotels/${id?.toUpperCase()}/${id?.toUpperCase()}_all.json`
+      const completeHotels = await zip.stream(
+        `newHotels/${id?.toUpperCase()}/${id?.toUpperCase()}.json`
       );
-      let data = JSON.parse(zipDotTxtContents);
-      res.status(200).json({ success: true, data: data });
+      res.writeHead(200, { 'content-encoding': 'deflate' });
+      completeHotels.pipe(zlib.createDeflate()).pipe(res);
     } else {
-      res.status(400).json({ success: true, data: [] });
+      es.status(400).json({ success: true, data: [] });
     }
   } catch (error) {
     res.status(400).json({ success: false, Error: error.toString() });
   }
-}
+});
+export default apiRoute;
