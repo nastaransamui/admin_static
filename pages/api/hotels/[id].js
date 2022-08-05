@@ -13,7 +13,7 @@ const apiRoute = nextConnect({
 apiRoute.get(async (req, res) => {
   const { id } = req.query;
   try {
-    const file = path.join(process.cwd(), 'public', 'ABCnewHotels.zip');
+    const file = path.join(process.cwd(), 'public', 'AnewHotels.zip');
     const zip = new StreamZip.async({
       file: file,
       storeEntries: true,
@@ -29,7 +29,7 @@ apiRoute.get(async (req, res) => {
       res.writeHead(200, { 'content-encoding': 'deflate' });
       completeHotels.pipe(zlib.createDeflate()).pipe(res);
     } else {
-      es.status(400).json({ success: true, data: [] });
+      res.status(400).json({ success: false, Error: 'notFound' });
     }
   } catch (error) {
     res.status(400).json({ success: false, Error: error.toString() });
