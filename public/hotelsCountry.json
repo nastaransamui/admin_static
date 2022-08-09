@@ -32,8 +32,8 @@
     "title_fa": "آنگویلا",
     "iso2": "AI",
     "totalHotel": 62,
-    "hotelReady": 14,
-    "hotelNotComplete": 48
+    "hotelReady": 0,
+    "hotelNotComplete": 62
   },
   {
     "_id": 3,
