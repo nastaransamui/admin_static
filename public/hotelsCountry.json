@@ -203,8 +203,8 @@
     "title_fa": "برمودا",
     "iso2": "BM",
     "totalHotel": 30,
-    "hotelReady": 14,
-    "hotelNotComplete": 16
+    "hotelReady": 0,
+    "hotelNotComplete": 30
   },
   {
     "_id": 33,
